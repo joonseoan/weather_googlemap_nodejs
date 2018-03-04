@@ -129,19 +129,18 @@ console.log(argv);
   * 
   */
 
+const encodedAddress = encodeURIComponent(argv.a);
+const decodedAddress = decodeURIComponent(argv.a);
 
 request({
 
     // url: `https://maps.googleapis.com/maps/api/geocode/json?address=111%20st%20clair%20avenue%20west`,
-    // url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(argv.a)}`,
-    url: `https://maps.googleapis.com/maps/api/geocode/json?address=${decodeURIComponent(argv.a)}`,
+    url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`,
+    // url: `https://maps.googleapis.com/maps/api/geocode/json?address=${decodeURIComponent(argv.a)}`,
 
 
     json: true // requests and takes the 'json' data into object
 }, (err, response, body) => {
-
-    
-    console.log(`body: ${body}`, `response: ${response}`, `err: ${err}`);
     
     // 1) 
     // console.log('body ==> ', body);
@@ -192,21 +191,9 @@ request({
    
 
     // to access objects of "body" object
-
-    console.log (body.results[0].formatted_address); // full address
-    console.log ('lat & lng: ', body.results[0].geometry.location);
-
+    console.log(`body: ${body}`, `response: ${response}`, `err: ${err}`);
+    console.log('Full Address:', body.results[0].formatted_address); // full address
+    console.log('Latitude: ', body.results[0].geometry.location.lat);
+    console.log('Longtitude: ', body.results[0].geometry.location.lng);
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
